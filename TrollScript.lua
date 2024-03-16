@@ -12,7 +12,7 @@ while task.wait(tweentime) do
         local rad = math.rad
         local r = rad(rot)
  		local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,-10)
-        rot+=math.random(15,90)
+        rot+=math.random(15,180)
 
         ts:Create(hrp, TweenInfo.new(tweentime), {CFrame = newcframe}):Play()
     end
