@@ -26,7 +26,7 @@ function start()
                 local r = rad(rot)
                 local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,dist)
                 if randball:GetAttribute("Target")==plr.Name then
-                    dist*=0.95
+                    dist = math.clamp(dist*0.95, 6, math.huge)
                 else
                     dist = math.clamp(randball.Velocity.Magnitude*0.2, 6, math.huge)
                 end
