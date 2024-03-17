@@ -7,6 +7,10 @@ local rot = 0
 local rad = math.rad
 local tweentime = 1/45
 
+game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
+    start()
+end)
+
 function start()
     while task.wait(tweentime) do
         balls = game.Workspace:WaitForChild("Balls"):GetChildren()
@@ -25,6 +29,3 @@ function start()
     end
 end
 start()
-game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
-    start()
-end)
