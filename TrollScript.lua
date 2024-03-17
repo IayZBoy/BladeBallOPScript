@@ -5,7 +5,6 @@ local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
 local randball
 local rot = 0
 local rad = math.rad
-local r = rad(rot)
 local tweentime = 1/45
 
 function start()
@@ -14,9 +13,8 @@ function start()
         if #balls > 0 then
             randball = balls[math.random(1,#balls)]
             if randball then
-                rot+=math.random(90,180)
-                r = rad(rot)
-                local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,-7.5)
+                local r = rad(rot)
+                local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,-10)
                 hrp.Velocity = Vector3.new() 
                 ts:Create(hrp, TweenInfo.new(tweentime), {CFrame = newcframe}):Play()
             end
