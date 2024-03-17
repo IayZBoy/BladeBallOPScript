@@ -15,6 +15,7 @@ function start()
             if randball then
                 local r = rad(rot)
                 local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,-15)
+                rot+=math.random(15,180)
                 hrp.Velocity = Vector3.new() 
                 ts:Create(hrp, TweenInfo.new(tweentime), {CFrame = newcframe}):Play()
             end
