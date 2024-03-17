@@ -1,7 +1,6 @@
 local char = game.Players.LocalPlayer.Character
 local hrp = char:WaitForChild("HumanoidRootPart")
 local ts = game:GetService("TweenService")
-local randball2
 local rot = 0
 local tweentime = 1/45
 
