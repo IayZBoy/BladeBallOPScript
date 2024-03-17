@@ -18,7 +18,7 @@ function start()
                 local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,-15)
                 rot+=90
 
-                hrp.AssemblyLinearVelocity=Vector3.new()
+                hrp.AssemblyLinearVelocity=Vector3.new(0,0,0)
                 ts:Create(hrp, TweenInfo.new(tweentime/2), {CFrame = newcframe}):Play()
             end
         end
