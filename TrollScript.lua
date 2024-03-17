@@ -1,7 +1,9 @@
-local char = game.Players.LocalPlayer.Character
+local plr = game.Players.LocalPlayer
+local char = plr.Character
 local hrp = char:WaitForChild("HumanoidRootPart")
 local ts = game:GetService("TweenService")
 local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
+local aliveplrs = game.Workspace:WaitForChild("Alive"):GetChildren()
 local randball
 local rot = 0
 local rad = math.rad
@@ -17,7 +19,8 @@ function start()
         char = game.Players.LocalPlayer.Character
         hrp = char:WaitForChild("HumanoidRootPart")
         balls = game.Workspace:WaitForChild("Balls"):GetChildren()
-        if #balls > 0 then
+        aliveplrs = game.Workspace:WaitForChild("Alive"):GetChildren()
+        if #balls > 0 and aliveplrs:FindFirstChild(plr.Name) then
             randball = balls[math.random(1,#balls)]
             if randball and hrp then
                 local r = rad(rot)
