@@ -13,7 +13,6 @@ function start()
         if #balls > 0 then
             randball = balls[math.random(1,#balls)]
             if randball then
-                local rad = math.rad
                 local r = rad(rot)
                 local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,-15)
                 rot+=90
