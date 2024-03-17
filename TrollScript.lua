@@ -13,11 +13,13 @@ function start()
         if #balls > 0 then
             randball = balls[math.random(1,#balls)]
             if randball then
+                local rad = math.rad
                 local r = rad(rot)
                 local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,-15)
-                rot+=math.random(15,180)
-                hrp.Velocity = Vector3.new() 
-                ts:Create(hrp, TweenInfo.new(tweentime), {CFrame = newcframe}):Play()
+                rot+=90
+
+                hrp.AssemblyLinearVelocity=Vector3.Zero
+                ts:Create(hrp, TweenInfo.new(tweentime/2), {CFrame = newcframe}):Play()
             end
         end
     end
