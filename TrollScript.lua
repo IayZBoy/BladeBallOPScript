@@ -22,4 +22,5 @@ while task.wait(tweentime) do
     end)
 end
 end
+start()
 game.Workspace:WaitForChild("Balls").ChildAdded:Connect(start)
