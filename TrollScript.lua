@@ -6,6 +6,7 @@ local randball
 local rot = 0
 local rad = math.rad
 local tweentime = 1/45
+local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 
 game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
     start()
@@ -23,7 +24,7 @@ function start()
                 rot=math.random(-180,180)
 
                 hrp.AssemblyLinearVelocity=Vector3.zero
-                ts:Create(hrp, TweenInfo.new(tweentime/2), {CFrame = newcframe}):Play()
+                ts:Create(hrp, Info, {CFrame = newcframe}):Play()
             end
         end
     end
