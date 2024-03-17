@@ -21,7 +21,7 @@ function start()
             randball = balls[math.random(1,#balls)]
             if randball and hrp then
                 local r = rad(rot)
-                local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,-15)
+                local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,15)
                 rot=math.random(-180,180)
 
                 hrp.AssemblyLinearVelocity=Vector3.zero
