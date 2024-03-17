@@ -4,6 +4,7 @@ local ts = game:GetService("TweenService")
 local rot = 0
 local tweentime = 1/45
 
+function start()
 while task.wait(tweentime) do
     pcall(function()
         local balls = game.workspace:WaitForChild("Balls"):GetChildren()
@@ -20,3 +21,5 @@ while task.wait(tweentime) do
         end)
     end)
 end
+end
+game.Workspace:WaitForChild("Balls").ChildAdded:Connect(start)
