@@ -21,4 +21,6 @@ function start()
     end
 end
 start()
-game.Workspace:WaitForChild("Balls").ChildAdded:Connect(start)
+game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
+    start()
+end)
