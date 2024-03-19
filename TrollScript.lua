@@ -38,9 +38,9 @@ Trolls:AddToggle("Troll Enabled",true,function(val)
     data.TrollEnabled=val
 end)
 
-Trolls:AddSlider("Troll Distance Factor",0,1,0.2,"X",function(distance)
+Trolls:AddSLider("Troll Distance Factor",0,1,0.2,"X",function(distance)
     data.TrollDistanceFactor=distance
-end)
+end
 
 local indicatorPart = Instance.new("Part")
 indicatorPart.Size = Vector3.new(ballspeed, ballspeed, ballspeed)
@@ -86,7 +86,8 @@ function start()
                 end
 
                 if plrballdist<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
-                    hit:FireServer(0.6, CFrame.new(),{},{})
+                    local point = Camera:WorldToScreenPoint(Local.Character.HumanoidRootPart.Position)
+                    hit:FireServer(0.6, CFrame.new(),{},{point.X,point.Y})
                 end
                 
                 plrballdist = (hrp.Position - randball.Position).Magnitude
