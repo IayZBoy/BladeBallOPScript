@@ -55,8 +55,8 @@ game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
     start()
 end)
 
-function UpdateIndicator(ball)
-    if ball:GetAttribute("target")==plr.Name then
+function UpdateIndicator()
+    if randball:GetAttribute("target")==plr.Name then
         indicatorPart.Color=Color3.FromRGB(255,125,125)
     elseif plrballdist<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name then
         indicatorPart.Color=Color3.FromRGB(125,255,125)
@@ -75,6 +75,11 @@ function TryParry()
          local point = Camera:WorldToScreenPoint(Local.Character.HumanoidRootPart.Position)
          hit:FireServer(0.6, CFrame.new(),{},{point.X,point.Y})
      end
+end
+
+function LaunchItems()
+	TryParry()
+	UpdateIndicator()
 end
 
 function start()
@@ -96,8 +101,6 @@ function start()
                 plrballdist = (hrp.Position - randball.Position).Magnitude
                 ballspeed = clamp(randball.Velocity.Magnitude,6,math.huge)
                 rot=math.random(-180,180)
-
-                UpdateIndicator(randball)
                 
                 if data.TrollEnabled then
                     hrp.AssemblyLinearVelocity=Vector3.zero
@@ -109,8 +112,11 @@ function start()
 end
 start()
 
-game:GetService("RunService").RenderStepped:Connect(TryParry)
-game:GetService("RunService").Heartbeat:Connect(TryParry)
+game:GetService("RunService").RenderStepped:Connect(LaunchItems)
+game:GetService("RunService").Heartbeat:Connect(LaunchItems)
+randball.Changed:Connect(function()
+	LaunchItems()
+end)
 
 local BedolUIV4 = {}
 local LocalPlayer = game:GetService('Players').LocalPlayer;
@@ -1246,3 +1252,4 @@ callback(G)
 end
 
 return BedolUIV4
+
