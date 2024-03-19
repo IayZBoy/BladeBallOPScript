@@ -38,9 +38,9 @@ Trolls:AddToggle("Troll Enabled",true,function(val)
     data.TrollEnabled=val
 end)
 
-Trolls:AddSLider("Troll Distance Factor",0,1,0.2,"X",function(distance)
+Trolls:AddSlider("Troll Distance Factor",0,1,0.2,"X",function(distance)
     data.TrollDistanceFactor=distance
-end
+end)
 
 local indicatorPart = Instance.new("Part")
 indicatorPart.Size = Vector3.new(ballspeed, ballspeed, ballspeed)
