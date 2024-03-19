@@ -13,7 +13,7 @@ local randball
 local rot = 0
 local rad = math.rad
 local clamp = math.clamp
-local tweentime = 1/45
+local tweentime = game:GetService("RunService").Heartbeat:Wait()
 local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local ui = BedolUIV4
 
@@ -40,7 +40,7 @@ end)
 
 Trolls:AddSLider("Troll Distance Factor",0,1,0.2,"X",function(distance)
     data.TrollDistanceFactor=distance
-end
+end)
 
 local indicatorPart = Instance.new("Part")
 indicatorPart.Size = Vector3.new(ballspeed, ballspeed, ballspeed)
@@ -69,6 +69,13 @@ function UpdateIndicator(ball)
     indicatorPart.Size=Vector3.new(ballspeed,ballspeed,ballspeed)
 end
 
+function TryParry()
+     if plrballdist<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
+         local point = Camera:WorldToScreenPoint(Local.Character.HumanoidRootPart.Position)
+         hit:FireServer(0.6, CFrame.new(),{},{point.X,point.Y})
+     end
+end
+
 function start()
     while task.wait(tweentime) do
         char = game.Players.LocalPlayer.Character
@@ -84,17 +91,12 @@ function start()
                 else
                     dist = clamp(randball.Velocity.Magnitude*data.TrollDistanceFactor, 6, math.huge)
                 end
-
-                if plrballdist<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
-                    local point = Camera:WorldToScreenPoint(Local.Character.HumanoidRootPart.Position)
-                    hit:FireServer(0.6, CFrame.new(),{},{point.X,point.Y})
-                end
-                
+                    
                 plrballdist = (hrp.Position - randball.Position).Magnitude
                 ballspeed = clamp(randball.Velocity.Magnitude,6,math.huge)
                 rot=math.random(-180,180)
 
-                UpdateIndicator()
+                UpdateIndicator(randball)
                 
                 if data.TrollEnabled then
                     hrp.AssemblyLinearVelocity=Vector3.zero
@@ -105,6 +107,9 @@ function start()
     end
 end
 start()
+
+game:GetService("RunService").RenderStepped:Connect(TryParry)
+game:GetService("RunService").Heartbeat:Connect(TryParry)
 
 local BedolUIV4 = {}
 local LocalPlayer = game:GetService('Players').LocalPlayer;
