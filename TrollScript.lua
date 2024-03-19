@@ -6,6 +6,7 @@ local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
 local aliveplrs = game.Workspace:WaitForChild("Alive")
 local vim = game:GetService("VirtualInputManager")
 local hit = game.ReplicatedStorage.Remotes.ParryAttempt
+local Camera = workspace:WaitForChild("CurrentCamera")
 local dist = 7.5
 local ballspeed = 6
 local plrballdist = 0
@@ -55,6 +56,14 @@ game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
     start()
 end)
 
+function GetLocalSize()
+	return Vector3.new(ballspeed,ballspeed,ballspeed)*(1+plr:GetNetworkPing())
+end
+
+function GetPoint()
+	return Camera:WorldToScreenPoint(hrp.Position)
+end
+
 function UpdateIndicator()
     if randball:GetAttribute("target")==plr.Name and randball:GetAttribute("realBall") then
         indicatorPart.Color=Color3.FromRGB(255,125,125)
@@ -66,13 +75,12 @@ function UpdateIndicator()
     if hrp then
         indicatorPart.CFrame=CFrame.new(hrp.Position)
     end
-    local totalsize = Vector3.new(ballspeed,ballspeed,ballspeed)*(1+plr:GetNetworkPing())
-    indicatorPart.Size=totalsize
+    indicatorPart.Size=GetLocalSize()
 end
 
 function TryParry()
-     if plrballdist<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
-         local point = Camera:WorldToScreenPoint(Local.Character.HumanoidRootPart.Position)
+     if plrballdist*(1+PLR:GetNetworkPing90)<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
+         local point = GetPoint()
          hit:FireServer(0.6, CFrame.new(),{},{point.X,point.Y})
      end
 end
