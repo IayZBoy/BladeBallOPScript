@@ -56,7 +56,7 @@ game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
 end)
 
 function UpdateIndicator()
-    if randball:GetAttribute("target")==plr.Name then
+    if randball:GetAttribute("target")==plr.Name and randball:GetAttribute("realBall") then
         indicatorPart.Color=Color3.FromRGB(255,125,125)
     elseif plrballdist<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name then
         indicatorPart.Color=Color3.FromRGB(125,255,125)
