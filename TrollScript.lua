@@ -66,7 +66,8 @@ function UpdateIndicator(ball)
     if hrp then
         indicatorPart.CFrame=CFrame.new(hrp.Position)
     end
-    indicatorPart.Size=Vector3.new(ballspeed,ballspeed,ballspeed)
+	local totalsize = Vector3.new(ballspeed,ballspeed,ballspeed)*(1+plr:GetNetworkPing())
+    indicatorPart.Size=totalsize
 end
 
 function TryParry()
