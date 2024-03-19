@@ -114,9 +114,7 @@ start()
 
 game:GetService("RunService").RenderStepped:Connect(LaunchItems)
 game:GetService("RunService").Heartbeat:Connect(LaunchItems)
-randball.Changed:Connect(function()
-	LaunchItems()
-end)
+randball.Changed:Connect(LaunchItems)
 
 local BedolUIV4 = {}
 local LocalPlayer = game:GetService('Players').LocalPlayer;
