@@ -112,7 +112,7 @@ game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
 end)
 
 function GetLocalSize()
-	return Vector3.new(ballspeed*0.data.ParryTime,ballspeed*0.data.ParryTime,ballspeed*0.data.ParryTime)*(1+plr:GetNetworkPing())
+	return Vector3.new(ballspeed*data.ParryTime,ballspeed*data.ParryTime,ballspeed*data.ParryTime)*(1+plr:GetNetworkPing())
 end
 
 function GetPoint()
@@ -121,11 +121,11 @@ end
 
 function UpdateIndicator()
     if randball:GetAttribute("target")==plr.Name and randball:GetAttribute("realBall") then
-        indicatorPart.Color=Color3.FromRGB(255,125,125)
-    elseif plrballdist<=ballspeed*0.data.ParryTime and randball:GetAttribute("target")==plr.Name then
-        indicatorPart.Color=Color3.FromRGB(125,255,125)
+        indicatorPart.Color=Color3.fromRGB(255,125,125)
+    elseif plrballdist<=ballspeed*data.ParryTime and randball:GetAttribute("target")==plr.Name then
+        indicatorPart.Color=Color3.fromRGB(125,255,125)
     else
-        indicatorPart.Color=Color3.FromRGB(255,255,255)
+        indicatorPart.Color=Color3.fromRGB(255,255,255)
     end
     if hrp then
         indicatorPart.CFrame=CFrame.new(hrp.Position)
@@ -174,7 +174,7 @@ function start()
                     dist = clamp((randball.Velocity.Magnitude*data.TrollDistanceFactor)/0.95, 6, randball.Velocity.Magnitude*data.TrollDistanceFactor)
                 end
                     
-                plrballdist = (hrp.Position - randball.Position).Magnitude
+                plrballdist = (randball.Position-hrp.Position).Magnitude
                 ballspeed = clamp(randball.Velocity.Magnitude,6,math.huge)
                 rot=math.random(-180,180)
                 
