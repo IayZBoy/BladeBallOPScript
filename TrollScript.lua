@@ -15,6 +15,7 @@ local randball
 local rot = 0
 local rad = math.rad
 local clamp = math.clamp
+local SpamEnabled = false
 local tweentime = game:GetService("RunService").Heartbeat:Wait()
 local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
@@ -107,7 +108,7 @@ game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
 end)
 
 function GetLocalSize()
-	return Vector3.new(ballspeed,ballspeed,ballspeed)*(1+plr:GetNetworkPing())
+	return Vector3.new(ballspeed*0.6,ballspeed*0.6,ballspeed*0.6)*(1+plr:GetNetworkPing())
 end
 
 function GetPoint()
@@ -143,6 +144,9 @@ end
 function LaunchItems()
 	TryParry()
 	UpdateIndicator()
+	if SpamEnabled then
+		TryParry()
+	end
 end
 
 game:GetService("RunService").RenderStepped:Connect(LaunchItems)
