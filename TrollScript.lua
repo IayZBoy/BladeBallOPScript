@@ -19,12 +19,13 @@ local SpamEnabled = false
 local tweentime = game:GetService("RunService").Heartbeat:Wait()
 local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
-+fgfgfgfgfgfgfgfg
+
 NEVERLOSE:Theme("Dark")
 
 local data = {
 	AutoParryEnabled = true,
 	VisualiserEnabled = false,
+	ParryTime=0.7,
 	TrollEnabled = false,
 	TrollDistanceFactor = 0.2
 }
@@ -44,6 +45,9 @@ Combat:AddToggle("Auto Parry",true,function(val)
 end)
 Combat:AddToggle("Visualiser",false,function(val)
 	data.VisualiserEnabled=val
+end)
+Combat:AddSlider("Parry Time",0,100,60,function(val)
+	data.ParryTime=val/100
 end)
 
 Trolls:AddToggle("Troll Enabled",false,function(val)
@@ -108,7 +112,7 @@ game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
 end)
 
 function GetLocalSize()
-	return Vector3.new(ballspeed*0.6,ballspeed*0.6,ballspeed*0.6)*(1+plr:GetNetworkPing())
+	return Vector3.new(ballspeed*0.data.ParryTime,ballspeed*0.data.ParryTime,ballspeed*0.data.ParryTime)*(1+plr:GetNetworkPing())
 end
 
 function GetPoint()
@@ -118,7 +122,7 @@ end
 function UpdateIndicator()
     if randball:GetAttribute("target")==plr.Name and randball:GetAttribute("realBall") then
         indicatorPart.Color=Color3.FromRGB(255,125,125)
-    elseif plrballdist<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name then
+    elseif plrballdist<=ballspeed*0.data.ParryTime and randball:GetAttribute("target")==plr.Name then
         indicatorPart.Color=Color3.FromRGB(125,255,125)
     else
         indicatorPart.Color=Color3.FromRGB(255,255,255)
@@ -135,9 +139,9 @@ function UpdateIndicator()
 end
 
 function TryParry()
-     if plrballdist*(1+plr:GetNetworkPing())<=ballspeed*0.6 and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
+     if plrballdist*(1+plr:GetNetworkPing())<=ballspeed*0.data.ParryTime and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
          local point = GetPoint()
-         hit:FireServer(0.6, CFrame.new(),{},{point.X,point.Y})
+         hit:FireServer(0.data.ParryTime, CFrame.new(),{},{point.X,point.Y})
      end
 end
 
