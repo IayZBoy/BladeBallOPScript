@@ -168,7 +168,7 @@ end
 
 function TryParry()
      if GetDistance()<=ballspeed*data.ParryTime and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
-         Parry()
+        Parry()
 	 elseif GetDistance()<=ballspeed*data.ParryTime and data.SpamEnabled then
 		Parry()
      end
