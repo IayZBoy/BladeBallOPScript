@@ -172,13 +172,25 @@ function GetPoint()
 end
 
 function GetDistance()
-	return GetDistance()
+	return plrballdist*(1+plr:GetNetworkPing())
+end
+
+function CanParry()
+	if GetDistance()<=ballspeed*data.ParryTime then
+		return true
+	else
+		return false
+	end
+end
+
+function IsRealBall()
+	return randball:GetAttribute("realBall")
 end
 
 function UpdateIndicator()
-    if randball:GetAttribute("target")==plr.Name and randball:GetAttribute("realBall") then
+    if randball:GetAttribute("target")==plr.Name and IsRealBall() then
         indicatorPart.Color=Color3.fromRGB(255,125,125)
-    elseif GetDistance()<=ballspeed*data.ParryTime and randball:GetAttribute("target")==plr.Name then
+    elseif CanParry() and randball:GetAttribute("target")==plr.Name and IsRealBall() then
         indicatorPart.Color=Color3.fromRGB(125,255,125)
     else
         indicatorPart.Color=Color3.fromRGB(255,255,255)
@@ -199,10 +211,10 @@ function Parry()
 end
 
 function TryParry()
-	if randball:GetAttribute("realBall") then
-     	if GetDistance()<=ballspeed*data.ParryTime and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
+	if IsRealBall() then
+     	if CanParry() and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
        		Parry()
-		 elseif GetDistance()<=ballspeed*data.ParryTime and data.SpamEnabled then
+		 elseif CanParry() and data.SpamEnabled then
 			Parry()
      	end
 	end
@@ -243,7 +255,7 @@ function start()
                     dist = clamp((randball.Velocity.Magnitude*data.TrollDistanceFactor)/0.95, 6, randball.Velocity.Magnitude*data.TrollDistanceFactor)
                 end
 
-				if data.BallFrozen then
+				if data.Trolls.BallFrozen then
 					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
 				end
                     
