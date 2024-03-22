@@ -186,7 +186,7 @@ function GetSpamDistance()
 end
 
 function CanParry()
-	if GetDistance()<=ballspeed*data.ParryTime then
+	if GetDistance()/3.25<=ballspeed*data.ParryTime then
 		return true
 	else
 		return false
