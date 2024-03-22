@@ -84,7 +84,7 @@ function StartScript()
 		data.Trolls.FollowPlayer=a
 	end)
 	Trolls:AddToggle("Freeze Ball",false,function(a)
-		data.Trolls.FollowPlayer=a
+		data.Trolls.BallFrozen=a
 	end)
 
 	Trolls:AddButton("Update Players",function(a)
@@ -216,6 +216,9 @@ function LaunchItems()
 		hum.WalkSpeed=data.Player.WalkSpeed
 		hum.JumpPower=data.Player.JumpPower
 		hum.UseJumpPower=true
+	end
+	if data.Trolls.BallFrozen then
+		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
 	end
 end
 
