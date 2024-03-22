@@ -22,8 +22,11 @@ local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc
 
 NEVERLOSE:Theme("Dark") 
 
-local Whitelisted = {
-	133840022,
+local whitelisted = {
+	133840022, --XxMattvdbraakXx
+	1309041911, --Cel3stiallll
+	78604822, --kayd7
+	4863463328, --Dino_irak
 }
 
 local data = {
@@ -38,7 +41,8 @@ local data = {
 		TrollDistanceFactor = 0.2,
 		Gravity=196.2
 		FollowPlayer = false,
-		PlayerToFollow = nil
+		PlayerToFollow = nil,
+		BallFrozen=false
 	),
 	Player = {
 		WalkSpeed = 36,
@@ -79,6 +83,9 @@ function StartScript()
 	Trolls:AddToggle("Follow Player",false,function(a)
 		data.Trolls.FollowPlayer=a
 	end)
+	Trolls:AddToggle("Freeze Ball",false,function(a)
+		data.Trolls.FollowPlayer=a
+	end)
 
 	Trolls:AddButton("Update Players",function(a)
 		PlayerList:Refresh()
@@ -112,6 +119,11 @@ function StartScript()
 	end)
 	Time:AddSlider("Time",0,240,120,function(a)
 		game.Lighting.TimeOfDay=a
+	end)
+
+	end)
+	fps:AddButton("Increase FPS", function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/FpsBoost.lua"))
 	end)
 
 	local catsus = Creds:AddSection("3345-c-a-t-s-u-s")
@@ -183,7 +195,7 @@ function UpdateIndicator()
 end
 
 function Parry()
-	hit:FireServer(data.ParryTime, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
+	hit:FireServer(0.5, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
 end
 
 function TryParry()
@@ -227,6 +239,10 @@ function start()
                 else
                     dist = clamp((randball.Velocity.Magnitude*data.TrollDistanceFactor)/0.95, 6, randball.Velocity.Magnitude*data.TrollDistanceFactor)
                 end
+
+				if data.BallFrozen then
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
+				end
                     
                 plrballdist = (randball.Position-hrp.Position).Magnitude
                 ballspeed = clamp(randball.Velocity.Magnitude,6,math.huge)
