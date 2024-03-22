@@ -246,6 +246,7 @@ function LaunchItems()
 	end
 end
 
+randball:GetAttributeChangedSignal("target"):Connect(TryParry)
 game:GetService("RunService").RenderStepped:Connect(LaunchItems)
 game:GetService("RunService").Heartbeat:Connect(LaunchItems)
 randball.Changed:Connect(LaunchItems)
