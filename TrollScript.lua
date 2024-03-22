@@ -39,6 +39,7 @@ local data = {
 	Trolls = (
 		TrollEnabled = false,
 		TrollDistanceFactor = 0.2,
+		Gravity=196.2
 		FollowPlayer = false,
 		PlayerToFollow = nil,
 		BallFrozen=false
@@ -46,9 +47,6 @@ local data = {
 	Player = {
 		WalkSpeed = 36,
 		JumpPower = 50
-	},
-	Fun = {
-		Gravity = 196.2
 	}
 }
 function StartScript()
@@ -60,7 +58,7 @@ function StartScript()
 	local Trolls = Main:AddSection("TROLLS", "right")
 	local Player = Main:AddSection("PLAYER", "left")
 	local FpsBoost = Main:AddSection("FPS", "right")
-	local Fun = Main:AddSection("FUN", "right")
+	local Lighting = Main:AddSection("TIME", "right")
 	local PlayerList = Trolls:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
 		data.Trolls.PlayerToFollow=v.Name
 	end)
@@ -93,11 +91,11 @@ function StartScript()
 		PlayerList:Refresh()
 	end)
 
-	Fun:AddSlider("Gravity",0,300,196.2,function(a)
+	Trolls:AddSlider("Gravity",0,300,196.2,function(a)
 		if hum then
 			hum.UseJumpPower=true
 		end
-		data.Fun.Gravity=a
+		data.Trolls.Gravity=a
 		end
 	end)
 
@@ -119,7 +117,7 @@ function StartScript()
 	FpsBoost:AddButton("Increase FPS", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/FpsBoost.lua"))
 	end)
-	Fun:AddSlider("Time",0,240,120,function(a)
+	Lighting:AddSlider("Time",0,240,120,function(a)
 		game.Lighting.TimeOfDay=a
 	end)
 
@@ -213,7 +211,7 @@ end
 function LaunchItems()
 	TryParry()
 	UpdateIndicator()
-	workspace.Gravity=data.Fun.Gravity
+	workspace.Gravity=data.Trolls.Gravity
 	if hum then
 		hum.WalkSpeed=data.Player.WalkSpeed
 		hum.JumpPower=data.Player.JumpPower
