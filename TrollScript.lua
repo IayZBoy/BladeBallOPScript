@@ -26,8 +26,6 @@ local Whitelisted = {
 	133840022,
 }
 
-
-
 local data = {
 	Combat = {
 		AutoParryEnabled = false,
@@ -56,6 +54,7 @@ function StartScript()
 	local Trolls = Main:AddSection("TROLLS", "right")
 	local Player = Main:AddSection("PLAYER", "left")
 	local FpsBoost = Main:AddSection("FPS", "right")
+	local Lighting = Main:AddSection("TIME", "right")
 	local PlayerList = Trolls:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
 		data.Trolls.PlayerToFollow=v.Name
 	end)
@@ -85,7 +84,7 @@ function StartScript()
 		PlayerList:Refresh()
 	end)
 
-	Trolls:AddSlider("Low Gravity",0,300,196.2,function(a)
+	Trolls:AddSlider("Gravity",0,300,196.2,function(a)
 		if hum then
 			hum.UseJumpPower=true
 		end
@@ -110,6 +109,9 @@ function StartScript()
 	end)
 	FpsBoost:AddButton("Increase FPS", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/FpsBoost.lua"))
+	end)
+	Time:AddSlider("Time",0,240,120,function(a)
+		game.Lighting.TimeOfDay=a
 	end)
 
 	local catsus = Creds:AddSection("3345-c-a-t-s-u-s")
