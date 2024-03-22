@@ -33,7 +33,7 @@ local data = {
 	Combat = {
 		AutoParryEnabled = false,
 		VisualiserEnabled = false,
-		SpamEnabled=false,
+		AutoSpamEnabled=false,
 		ParryTime=0.7
 	},
 	Trolls = (
@@ -72,8 +72,8 @@ function StartScript()
 	Combat:AddSlider("Parry Time",0,100,60,function(val)
 		data.Combat.ParryTime=val/100
 	end)
-	Combat:AddToggle("Spam",false,function(val)
-		data.Combat.SpamEnabled=val
+	Combat:AddToggle("Auto Spam",false,function(val)
+		data.Combat.AutoSpamEnabled=val
 	end)
 
 	Trolls:AddToggle("Troll Enabled",false,function(val)
@@ -175,8 +175,20 @@ function GetDistance()
 	return plrballdist*(1+plr:GetNetworkPing())
 end
 
+function GetSpamDistance()
+	return GetDistance()/5
+end
+
 function CanParry()
 	if GetDistance()<=ballspeed*data.ParryTime then
+		return true
+	else
+		return false
+	end
+end
+
+function CanSpam()
+	if GetSpamDistance()<=ballspeed*data.ParryTime then
 		return true
 	else
 		return false
@@ -212,10 +224,10 @@ end
 
 function TryParry()
 	if IsRealBall() then
-     	if CanParry() and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
-       		Parry()
-		 elseif CanParry() and data.SpamEnabled then
+		if CanSpam() and data.AutoSpamEnabled then
 			Parry()
+		elseif CanParry() and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
+       		Parry()
      	end
 	end
 end
