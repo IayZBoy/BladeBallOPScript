@@ -42,7 +42,8 @@ local data = {
 		Gravity=196.2
 		FollowPlayer = false,
 		PlayerToFollow = nil,
-		BallFrozen=false
+		BallFrozen=false,
+		LookAtBall=false
 	),
 	Player = {
 		WalkSpeed = 36,
@@ -83,8 +84,13 @@ function StartScript()
 	Trolls:AddToggle("Follow Player",false,function(a)
 		data.Trolls.FollowPlayer=a
 	end)
+	
 	Trolls:AddToggle("Freeze Ball",false,function(a)
-		data.Trolls.BallFrozen=a
+		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
+	end)
+
+	Trolls:AddToggle("Look at ball",false,function(a)
+		data.LookAtBall=a
 	end)
 
 	Trolls:AddButton("Update Players",function(a)
