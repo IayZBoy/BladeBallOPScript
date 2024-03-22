@@ -176,7 +176,7 @@ function GetDistance()
 end
 
 function GetSpamDistance()
-	return GetDistance()/5
+	return GetDistance()/7.5
 end
 
 function CanParry()
