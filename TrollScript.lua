@@ -183,17 +183,24 @@ function Parry()
 end
 
 function TryParry()
-     if GetDistance()<=ballspeed*data.ParryTime and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
-        Parry()
-	 elseif GetDistance()<=ballspeed*data.ParryTime and data.SpamEnabled then
-		Parry()
-     end
+	if randball:GetAttribute("realBall") then
+     	if GetDistance()<=ballspeed*data.ParryTime and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
+       		Parry()
+		 elseif GetDistance()<=ballspeed*data.ParryTime and data.SpamEnabled then
+			Parry()
+     	end
+	end
 end
 
 function LaunchItems()
 	TryParry()
 	UpdateIndicator()
 	workspace.Gravity=data.Trolls.Gravity
+	if hum then
+		hum.WalkSpeed=data.Player.WalkSpeed
+		hum.JumpPower=data.Player.JumpPower
+		hum.UseJumpPower=true
+	end
 end
 
 game:GetService("RunService").RenderStepped:Connect(LaunchItems)
