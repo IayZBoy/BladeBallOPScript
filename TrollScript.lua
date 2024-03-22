@@ -18,6 +18,7 @@ local clamp = math.clamp
 local tweentime = game:GetService("RunService").Heartbeat:Wait()
 local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
+local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/Code.lua"))
 
 NEVERLOSE:Theme("Dark") 
 
@@ -54,6 +55,7 @@ function StartScript()
 	local Combat = Main:AddSection("COMBAT", "left")
 	local Trolls = Main:AddSection("TROLLS", "right")
 	local Player = Main:AddSection("PLAYER", "left")
+	local FpsBoost = Main:AddSection("FPS", "right")
 	local PlayerList = Trolls:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
 		data.Trolls.PlayerToFollow=v.Name
 	end)
@@ -106,6 +108,9 @@ function StartScript()
 			hum.JumpPower=a
 		end
 	end)
+	FpsBoost:AddButton("Increase FPS", function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/FpsBoost.lua"))
+	end)
 
 	local catsus = Creds:AddSection("3345-c-a-t-s-u-s")
 	catsus:AddLabel("CREDITS TO")
@@ -121,6 +126,10 @@ local KeySystem = NEVERLOSE:KeySystem("Key System","!QAZ1qaz@WSX2wsx", function(
 	end
 end
 KeySystem:CallBack(StartScript)
+
+if table.find(Whitelisted, plr.UserId) then
+	StartScript()
+end
 
 local indicatorPart = Instance.new("Part")
 indicatorPart.Size = Vector3.new(ballspeed, ballspeed, ballspeed)
