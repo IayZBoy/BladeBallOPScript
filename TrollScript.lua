@@ -215,6 +215,28 @@ function GetLocalSize()
 	return Vector3.new(GetSpeed()*2,GetSpeed()*2,GetSpeed()*2)*(1+plr:GetNetworkPing())
 end
 
+local function getclosestplr()
+    local bot_position = hrp.Position
+    
+    local distance = math.huge
+    local closest_player_character = nil
+    
+	for i, player in pairs(game.Players:GetPlayers()) do
+		if player.Character:FindFirstChild("Humanoid") then
+
+		    local player_position = player.Character.HumanoidRootPart.Position
+		    local distance_from_bot = (bot_position - player_position).magnitude
+		    
+			if distance_from_bot < distance then
+			    distance = distance_from_bot
+			    closest_player_character = player.Character
+			end
+		end
+	end
+	
+	return closest_player_character
+end
+
 function GetPoint()
 	if data.TargetPlr.TargetPlrEnabled and data.TargetPlr.Target then
 		return Camera:WorldToScreenPoint(workspace:FindFirstChild(data.TargetPlr.Target):FindFirstChild("HumanoidRootPart").Position)
@@ -228,7 +250,7 @@ function GetDistance()
 end
 
 function GetSpamDistance()
-	return GetDistance()/7.5
+	return (hrp.Position-getclosestplr():FindFirstChild("HumanoidRootPart").Position).Magnitude
 end
 
 function CanParry()
@@ -276,7 +298,7 @@ end
 
 function TryParry()
 	if IsRealBall() then
-		if CanSpam() and data.AutoSpamEnabled then
+		if GetSpamDistance()<=10 and GetDistance()<=10 and data.AutoSpamEnabled then
 			Parry()
 		elseif CanParry() and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
        		Parry()
