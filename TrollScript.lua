@@ -250,7 +250,7 @@ function GetSpamDistance()
 end
 
 function CanParry()
-	if GetDistance()<=GetSpeed() then
+	if GetDistance()<=GetSpeed()/1.5 then
 		return true
 	else
 		return false
@@ -295,7 +295,7 @@ function UpdateIndicator()
 	else
 		indicatorPart.Transparency=1
 	end
-    indicatorPart.Size=GetLocalSize()
+    indicatorPart.Size=GetLocalSize()/1.5
 end
 
 function LaunchItems()
