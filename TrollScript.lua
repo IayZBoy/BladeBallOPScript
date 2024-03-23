@@ -229,16 +229,16 @@ local function getclosestplr()
 	return closest_player_character
 end
 
-function GetSpeed()
-	return (ballspeed*data.Combat.ParryTime)/2
-end
-
 function GetPoint()
 	if data.TargetPlr.TargetPlrEnabled and data.TargetPlr.Target then
 		return Camera:WorldToScreenPoint(workspace:FindFirstChild(data.TargetPlr.Target):FindFirstChild("HumanoidRootPart").Position)
 	else
 		return Camera:WorldToScreenPoint(hrp.Position)
 	end
+end
+
+function GetSpeed()
+	return (ballspeed*data.Combat.ParryTime)/2
 end
 
 function GetDistance()
@@ -258,7 +258,7 @@ function CanParry()
 end
 
 function Parry()
-	hit:FireServer(0.5, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
+	hit:FireServer(0.65, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
 end
 
 function TryParry()
@@ -295,6 +295,7 @@ function UpdateIndicator()
 	else
 		indicatorPart.Transparency=1
 	end
+	
     indicatorPart.Size=GetLocalSize()/1.5
 end
 
