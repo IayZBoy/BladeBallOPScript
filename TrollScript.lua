@@ -37,7 +37,7 @@ local data = {
 		AutoSpamEnabled=false,
 		ParryTime=0.7
 	},
-	Trolls = (
+	Trolls = {
 		TrollEnabled = false,
 		TrollDistanceFactor = 0.2,
 		Gravity=196.2,
@@ -45,7 +45,7 @@ local data = {
 		PlayerToFollow = nil,
 		BallFrozen=false,
 		LookAtBall=false
-	),
+	},
 	Player = {
 		WalkSpeed = 36,
 		JumpPower = 50
@@ -67,7 +67,7 @@ function StartScript()
 	local FpsBoost = Main:AddSection("FPS", "right")
 	local Lighting = Main:AddSection("TIME", "right")
 	local TargetPlr = Main:AddSection("TARGET PLAYER", "left")
-	local Esp = Main:addSection("ESP", "right")
+	local Esp = Main:AddSection("ESP", "right")
 
 	local PlayerList = Trolls:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
 		data.Trolls.PlayerToFollow=v.Name
@@ -96,7 +96,7 @@ function StartScript()
 	Trolls:AddToggle("Follow Player",false,function(a)
 		data.Trolls.FollowPlayer=a
 	end)
-	
+
 	Trolls:AddToggle("Freeze Ball",false,function(a)
 		data.Trolls.BallFrozen=a
 	end)
@@ -114,7 +114,6 @@ function StartScript()
 			hum.UseJumpPower=true
 		end
 		data.Trolls.Gravity=a
-		end
 	end)
 
 	Trolls:AddSlider("Troll Distance Factor",0,100,20,function(distance)
@@ -136,12 +135,7 @@ function StartScript()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/FpsBoost.lua"))
 	end)
 	Lighting:AddSlider("Time",0,240,120,function(a)
-		game.Lighting.TimeOfDay=a
-	end)
-
-	end)
-	fps:AddButton("Increase FPS", function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/FpsBoost.lua"))
+		game.Lighting.TimeOfDay=a/10
 	end)
 	TargetPlr:AddToggle("Target Plr Enabled",false,function(a)
 		data.TargetPlr.TargetPlrEnabled=a
@@ -163,7 +157,7 @@ function StartScript()
 			while task.wait() do
 				TextLabel.Text="<b>BALL • "..ballspeed.."</b>"
 			end
-			if not a and BallGUi then
+			if not a and BallGui then
 				BallGui:Destroy()
 			end
 		end
@@ -176,25 +170,27 @@ function StartScript()
 	local nqxl = Creds:AddSection("nqxlOfc")
 	nqxl:AddLabel("CREDITS TO")
 	nqxl:AddLabel("nqxlOfc")
-	nqxl:AddLabel("FOR THE CODES AND THEN ANTI-LAG")
+	nqxl:AddLabel("FOR THE CODES AND THE ANTI-LAG")
 
-	game.players.PlayerAdded:Connect(function()
+	game.Players.PlayerAdded:Connect(function()
 		PlayerList:Refresh()
 		PlayerList2:Refresh()
 	end)
 end
 
-local KeySystem = NEVERLOSE:KeySystem("Key System","!QAZ1qaz@WSX2wsx", function(Key)
-	if Key=="!QAZ1qaz@WSX2wsx" then
-		return true
-	else
-		return false
-	end
-end
-KeySystem:CallBack(StartScript)
-
-if table.find(Whitelisted, plr.UserId) then
+if table.find(whitelisted, plr.UserId) then
 	StartScript()
+else
+	local KeySystem = NEVERLOSE:KeySystem("Key System","!QAZ1qaz@WSX2wsx", function(Key)
+		if Key=="!QAZ1qaz@WSX2wsx" then
+			return true
+		else
+			return false
+		end
+	end)
+	KeySystem:Callback(function()
+		StartScript()
+	end)
 end
 
 local indicatorPart = Instance.new("Part")
@@ -262,7 +258,7 @@ function UpdateIndicator()
     if hrp then
         indicatorPart.CFrame=CFrame.new(hrp.Position)
     end
-	if data.VisualiserEnabled then
+	if data.Combat.VisualiserEnabled then
 		indicatorPart.Transparency=0
 	else
 		indicatorPart.Transparency=1
