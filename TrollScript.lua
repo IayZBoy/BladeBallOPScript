@@ -39,7 +39,7 @@ local data = {
 	Trolls = (
 		TrollEnabled = false,
 		TrollDistanceFactor = 0.2,
-		Gravity=196.2
+		Gravity=196.2,
 		FollowPlayer = false,
 		PlayerToFollow = nil,
 		BallFrozen=false,
@@ -48,6 +48,10 @@ local data = {
 	Player = {
 		WalkSpeed = 36,
 		JumpPower = 50
+	},
+	TargetPlr = {
+		Target = nil,
+		TargetPlrEnabled=false
 	}
 }
 function StartScript()
@@ -60,7 +64,11 @@ function StartScript()
 	local Player = Main:AddSection("PLAYER", "left")
 	local FpsBoost = Main:AddSection("FPS", "right")
 	local Lighting = Main:AddSection("TIME", "right")
+	local TargetPlr = Main:AddSection("TARGET PLAYER", "left")
 	local PlayerList = Trolls:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
+		data.Trolls.PlayerToFollow=v.Name
+	end)
+	local PlayerList2 = TargetPlr:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
 		data.Trolls.PlayerToFollow=v.Name
 	end)
 
@@ -131,6 +139,9 @@ function StartScript()
 	fps:AddButton("Increase FPS", function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/FpsBoost.lua"))
 	end)
+	TargetPlr:AddToggle("Target Plr Enabled",false,function(a)
+		data.TargetPlr.TargetPlrEnabled=a
+	end)
 
 	local catsus = Creds:AddSection("3345-c-a-t-s-u-s")
 	catsus:AddLabel("CREDITS TO")
@@ -140,6 +151,11 @@ function StartScript()
 	nqxl:AddLabel("CREDITS TO")
 	nqxl:AddLabel("nqxlOfc")
 	nqxl:AddLabel("FOR THE CODES AND THEN ANTI-LAG")
+
+	game.players.PlayerAdded:Connect(function()
+		PlayerList:Refresh()
+		PlayerList2:Refresh()
+	end)
 end
 
 local KeySystem = NEVERLOSE:KeySystem("Key System","!QAZ1qaz@WSX2wsx", function(Key)
@@ -174,7 +190,11 @@ function GetLocalSize()
 end
 
 function GetPoint()
-	return Camera:WorldToScreenPoint(hrp.Position)
+	if data.TargetPlr.TargetPlrEnabled and data.TargetPlr.Target then
+		return Camera:WorldToScreenPoint(workspace:FindFirstChild(data.TargetPlr.Target):FindFirstChild("HumanoidRootPart").Position)
+	else
+		return Camera:WorldToScreenPoint(hrp.Position)
+	end
 end
 
 function GetDistance()
@@ -288,7 +308,7 @@ function start()
                 if data.Trolls.TrollEnabled then
                     hrp.AssemblyLinearVelocity=Vector3.zero
                     ts:Create(hrp, Info, {CFrame = newcframe}):Play()
-				elseif data.Trolls.FollowPlayer then
+				elseif data.Trolls.FollowPlayer and data.Trolls.PlayerToFollow then
 					hrp.AssemblyLinearVelocity=Vector3.zero
 					ts:Createhrp, Info, {CFrame = workspace:FindFirstChild(data.PlayerToFollow):FindFirstChild("HumanoidRootPart").CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,10)}
                 end
