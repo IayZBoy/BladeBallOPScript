@@ -212,7 +212,7 @@ function GetSpeed()
 end
 
 function GetLocalSize()
-	return Vector3.new(GetSpeed()*2,GetSpeed()*2,GetSpeed()*2)*(1+plr:GetNetworkPing())
+	return Vector3.new(GetSpeed()/1.5,GetSpeed()/1.5,GetSpeed()/1.5)*(1+plr:GetNetworkPing())
 end
 
 local function getclosestplr()
@@ -254,7 +254,7 @@ function GetSpamDistance()
 end
 
 function CanParry()
-	if GetDistance()<=GetSpeed() then
+	if GetDistance()<=GetSpeed()/3 then
 		return true
 	else
 		return false
