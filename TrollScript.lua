@@ -254,7 +254,7 @@ function GetSpamDistance()
 end
 
 function CanParry()
-	if GetDistance()<=GetSpeed()/3 then
+	if GetDistance()/3<=GetSpeed()/3 then
 		return true
 	else
 		return false
