@@ -12,6 +12,7 @@ local dist = 7.5
 local ballspeed = 12.5
 local plrballdist = 0
 local randball
+local BallGui
 local rot = 0
 local rad = math.rad
 local clamp = math.clamp
@@ -59,12 +60,15 @@ function StartScript()
 
 	local Main = window:AddTab("Main","earth")
 	local Creds = window:AddTab("Credits", "list")
+
 	local Combat = Main:AddSection("COMBAT", "left")
 	local Trolls = Main:AddSection("TROLLS", "right")
 	local Player = Main:AddSection("PLAYER", "left")
 	local FpsBoost = Main:AddSection("FPS", "right")
 	local Lighting = Main:AddSection("TIME", "right")
 	local TargetPlr = Main:AddSection("TARGET PLAYER", "left")
+	local Esp = Main:addSection("ESP", "right")
+
 	local PlayerList = Trolls:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
 		data.Trolls.PlayerToFollow=v.Name
 	end)
@@ -141,6 +145,28 @@ function StartScript()
 	end)
 	TargetPlr:AddToggle("Target Plr Enabled",false,function(a)
 		data.TargetPlr.TargetPlrEnabled=a
+	end)
+
+	Esp:AddToggle("Ball Gui", false, function(a)
+		if a then
+			BallGui = Instance.new("BillboardGui")
+			local TextLabel = Instance.new("TextLabel")
+			BallGui.Parent=randball
+			BallGui.LightInfluence=0
+			BallGui.AlwaysOnTop=true
+			TextLabel.Parent=BallGui
+			TextLabel.BackgroundTransparency=1
+			TextLabel.TextColor3=Color3.fromRGB(255,255,255)
+			TextLabel.RichText=true
+			TextLabel.Size=UDim2.fromScale(1,1)
+
+			while task.wait() do
+				TextLabel.Text="<b>BALL • "..ballspeed.."</b>"
+			end
+			if not a and BallGUi then
+				BallGui:Destroy()
+			end
+		end
 	end)
 
 	local catsus = Creds:AddSection("3345-c-a-t-s-u-s")
