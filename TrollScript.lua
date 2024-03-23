@@ -23,41 +23,42 @@ local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc
 
 NEVERLOSE:Theme("Dark") 
 
+local whitelisted = {
+	133840022, --XxMattvdbraakXx
+	1309041911, --Cel3stiallll
+	78604822, --kayd7
+	4863463328, --Dino_irak
+}
+
 local Notification = NEVERLOSE:Notification()
 
-local err, succ = pcall(function()
-	local whitelisted = {
-		133840022, --XxMattvdbraakXx
-		1309041911, --Cel3stiallll
-		78604822, --kayd7
-		4863463328, --Dino_irak
+local data = {
+	Combat = {
+		AutoParryEnabled = false,
+		VisualiserEnabled = false,
+		AutoSpamEnabled=false,
+		ParryTime=0.7
+	},
+	Trolls = {
+		TrollEnabled = false,
+		TrollDistanceFactor = 0.2,
+		Gravity=196.2,
+		FollowPlayer = false,
+		PlayerToFollow = nil,
+		BallFrozen=false,
+		LookAtBall=false
+	},
+	Player = {
+		WalkSpeed = 36,
+		JumpPower = 50
+	},
+	TargetPlr = {
+		Target = nil,
+		TargetPlrEnabled=false
 	}
+}
 
-	local data = {
-		Combat = {
-			AutoParryEnabled = false,
-			VisualiserEnabled = false,
-			AutoSpamEnabled=false,
-			ParryTime=0.7
-		},
-		Trolls = {
-			TrollEnabled = false,
-			TrollDistanceFactor = 0.2,
-			Gravity=196.2,
-			FollowPlayer = false,
-			PlayerToFollow = nil,
-			BallFrozen=false,
-			LookAtBall=false
-		},
-		Player = {
-			WalkSpeed = 36,
-			JumpPower = 50
-		},
-		TargetPlr = {
-			Target = nil,
-			TargetPlrEnabled=false
-		}
-	}
+local err, succ = pcall(function()
 	function StartScript()
 		local window = NEVERLOSE:AddWindow("ZBOY HUB", "BLADE BALL - NEXT GENERATION")
 
