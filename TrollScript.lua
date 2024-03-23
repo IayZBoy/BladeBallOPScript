@@ -122,13 +122,13 @@ function StartScript()
 
 	Player:AddSlider("Speed",36,250,36,function(a)
 		if hum then
-			hum.WalkSpeed=a
+			data.Player.WalkSpeed=a
 		end
 	end)
 	Player:AddSlider("JumpPower",50,250,50,function(a)
 		if hum then
 			hum.UseJumpPower=true
-			hum.JumpPower=a
+			data.Player.JumpPower=a
 		end
 	end)
 	FpsBoost:AddButton("Increase FPS", function()
