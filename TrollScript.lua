@@ -207,8 +207,12 @@ game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
     start()
 end)
 
+function GetSpeed()
+	return (ballspeed*data.Combat.ParryTime)/2
+end
+
 function GetLocalSize()
-	return Vector3.new(ballspeed*data.ParryTime,ballspeed*data.ParryTime,ballspeed*data.ParryTime)*(1+plr:GetNetworkPing())
+	return Vector3.new(GetSpeed()*2,GetSpeed()*2,GetSpeed()*2)*(1+plr:GetNetworkPing())
 end
 
 function GetPoint()
@@ -228,7 +232,7 @@ function GetSpamDistance()
 end
 
 function CanParry()
-	if GetDistance()<=ballspeed*data.ParryTime then
+	if GetDistance()<=GetSpeed() then
 		return true
 	else
 		return false
@@ -236,7 +240,7 @@ function CanParry()
 end
 
 function CanSpam()
-	if GetSpamDistance()<=ballspeed*data.ParryTime then
+	if GetSpamDistance()<=GetSpeed() then
 		return true
 	else
 		return false
