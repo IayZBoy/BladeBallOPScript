@@ -207,14 +207,6 @@ game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
     start()
 end)
 
-function GetSpeed()
-	return (ballspeed*data.Combat.ParryTime)/2
-end
-
-function GetLocalSize()
-	return Vector3.new(GetSpeed()/1.5,GetSpeed()/1.5,GetSpeed()/1.5)*(1+plr:GetNetworkPing())
-end
-
 local function getclosestplr()
     local bot_position = hrp.Position
     
@@ -237,6 +229,10 @@ local function getclosestplr()
 	return closest_player_character
 end
 
+function GetSpeed()
+	return (ballspeed*data.Combat.ParryTime)/2
+end
+
 function GetPoint()
 	if data.TargetPlr.TargetPlrEnabled and data.TargetPlr.Target then
 		return Camera:WorldToScreenPoint(workspace:FindFirstChild(data.TargetPlr.Target):FindFirstChild("HumanoidRootPart").Position)
@@ -254,23 +250,33 @@ function GetSpamDistance()
 end
 
 function CanParry()
-	if GetDistance()/3<=GetSpeed()/3 then
+	if GetDistance()<=GetSpeed() then
 		return true
 	else
 		return false
 	end
 end
 
-function CanSpam()
-	if GetSpamDistance()<=GetSpeed() then
-		return true
-	else
-		return false
+function Parry()
+	hit:FireServer(0.5, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
+end
+
+function TryParry()
+	if IsRealBall() then
+		if GetSpamDistance()<=10 and GetDistance()<=10 and data.AutoSpamEnabled then
+			Parry()
+		elseif CanParry() and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
+       		Parry()
+     	end
 	end
 end
 
 function IsRealBall()
 	return randball:GetAttribute("realBall")
+end
+
+function GetLocalSize()
+	return Vector3.new(GetSpeed()*2,GetSpeed()*2,GetSpeed()*2)*(1+plr:GetNetworkPing())
 end
 
 function UpdateIndicator()
@@ -290,20 +296,6 @@ function UpdateIndicator()
 		indicatorPart.Transparency=1
 	end
     indicatorPart.Size=GetLocalSize()
-end
-
-function Parry()
-	hit:FireServer(0.5, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
-end
-
-function TryParry()
-	if IsRealBall() then
-		if GetSpamDistance()<=10 and GetDistance()<=10 and data.AutoSpamEnabled then
-			Parry()
-		elseif CanParry() and randball:GetAttribute("target")==plr.Name and data.AutoParryEnabled then
-       		Parry()
-     	end
-	end
 end
 
 function LaunchItems()
