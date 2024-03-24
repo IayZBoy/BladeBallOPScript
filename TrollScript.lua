@@ -22,6 +22,16 @@ local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc
 
 NEVERLOSE:Theme("Dark") 
 
+local indicatorPart = Instance.new("Part")
+	indicatorPart.Size = Vector3.new(ballspeed, ballspeed, ballspeed)
+	indicatorPart.Anchored = true
+	indicatorPart.CanCollide = false
+	indicatorPart.Transparency = 1
+	indicatorPart.Color = Color3.fromRGB(255,255,255)
+	indicatorPart.Material = Enum.Material.ForceField
+	indicatorPart.Shape=Enum.PartType.Ball
+	indicatorPart.Parent = workspace
+
 local whitelisted = {
 	133840022, --XxMattvdbraakXx
 	1309041911, --Cel3stiallll
@@ -158,7 +168,7 @@ local succ, err = pcall(function()
 				TextLabel.Size=UDim2.fromScale(1,1)
 
 				while task.wait() do
-					TextLabel.Text="<b>BALL • "..ballspeed.."</b>"
+					TextLabel.Text="<b>BALL • "..plrballdist.."</b>"
 				end
 				if not a and BallGui then
 					BallGui:Destroy()
@@ -195,16 +205,6 @@ local succ, err = pcall(function()
 			StartScript()
 		end)
 	end
-
-	local indicatorPart = Instance.new("Part")
-	indicatorPart.Size = Vector3.new(ballspeed, ballspeed, ballspeed)
-	indicatorPart.Anchored = true
-	indicatorPart.CanCollide = false
-	indicatorPart.Transparency = 1
-	indicatorPart.Color = Color3.fromRGB(255,255,255)
-	indicatorPart.Material = Enum.Material.ForceField
-	indicatorPart.Shape=Enum.PartType.Ball
-	indicatorPart.Parent = workspace
 
 	game.Workspace:WaitForChild("Balls").ChildAdded:Connect(function()
 	    start()
