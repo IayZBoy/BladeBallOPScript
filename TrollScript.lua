@@ -23,6 +23,10 @@ local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc
 NEVERLOSE:Theme("Dark") 
 
 local whitelisted = {
+	133840022, --XxMattvdbraakXx
+	1309041911, --Cel3stiallll
+	78604822, --kayd7
+	4863463328, --Dino_irak
 }
 
 local Notification = NEVERLOSE:Notification()
@@ -262,12 +266,16 @@ local succ, err = pcall(function()
 		end
 	end
 
+	function Parry()
+		hit:FireServer(0.65, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
+	end
+
 	function TryParry()
 		if IsRealBall() then
 			if GetSpamDistance()<=10 and GetDistance()<=10 and data.Combat.AutoSpamEnabled then
-				hit:FireServer(0.65, CFrame.new(),{},{})
+				Parry()
 			elseif CanParry() and randball:GetAttribute("target")==plr.Name and data.Combat.AutoParryEnabled then
-				hit:FireServer(0.65, CFrame.new(),{},{})
+	       		Parry()
 	     	end
 		end
 	end
