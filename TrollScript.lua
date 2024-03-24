@@ -267,7 +267,7 @@ local succ, err = pcall(function()
 	end
 
 	function Parry()
-		hit:FireServer(0.65, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
+		game:GetService("ReplicatedStorage").Remotes.ParryButtonPress:Fire()
 	end
 
 	function TryParry()
@@ -305,19 +305,21 @@ local succ, err = pcall(function()
 	end
 
 	function LaunchItems()
-		TryParry()
-		UpdateIndicator()
-		workspace.Gravity=data.Trolls.Gravity
-		if hum then
-			hum.WalkSpeed=data.Player.WalkSpeed
-			hum.JumpPower=data.Player.JumpPower
-			hum.UseJumpPower=true
-		end
-		if data.Trolls.BallFrozen then
-			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
-		end
-		if data.Trolls.LookAtBall then
-			hrp.CFrame = CFrame.lookAt(hrp.Position, randball.Position, Vector3.new(0,1,0))
+		if randball then
+			TryParry()
+			UpdateIndicator()
+			workspace.Gravity=data.Trolls.Gravity
+			if hum then
+				hum.WalkSpeed=data.Player.WalkSpeed
+				hum.JumpPower=data.Player.JumpPower
+				hum.UseJumpPower=true
+			end
+			if data.Trolls.BallFrozen then
+				game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
+			end
+			if data.Trolls.LookAtBall then
+				hrp.CFrame = CFrame.lookAt(hrp.Position, randball.Position, Vector3.new(0,1,0))
+			end
 		end
 	end
 
@@ -342,10 +344,6 @@ local succ, err = pcall(function()
             	    else
             	        dist = clamp((randball.Velocity.Magnitude*data.TrollDistanceFactor)/0.95, 6, randball.Velocity.Magnitude*data.TrollDistanceFactor)
             	    end
-
-					if data.Trolls.BallFrozen then
-						game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
-					end
 				
             	    plrballdist = (randball.Position-hrp.Position).Magnitude
             	    ballspeed = clamp(randball.Velocity.Magnitude,6,math.huge)
