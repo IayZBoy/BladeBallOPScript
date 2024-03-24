@@ -1,5 +1,4 @@
 local succ, err = pcall(function()
-
 	local plr = game.Players.LocalPlayer
 	local char = plr.Character
 	local hrp = char:WaitForChild("HumanoidRootPart")
