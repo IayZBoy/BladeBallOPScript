@@ -20,7 +20,10 @@ local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDire
 local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
 local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/Code.lua"))
 
-NEVERLOSE:Theme("Dark")
+NEVERLOSE:Theme("Dark") 
+
+local whitelisted = {
+}
 
 local Notification = NEVERLOSE:Notification()
 
@@ -357,6 +360,7 @@ local succ, err = pcall(function()
 		start()
 	end
 end)
+
 if succ then
 	Notification:Notify("success", "SUCCESS!", "Successfully loaded script.", 4)
 elseif not succ then
