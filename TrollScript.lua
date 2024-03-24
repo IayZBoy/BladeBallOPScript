@@ -28,6 +28,7 @@ local succ, err = pcall(function()
 		1309041911, --Cel3stiallll
 		78604822, --kayd7
 		4863463328, --Dino_irak
+		3939974770, --Dino Alt
 	}
 
 	local Notification = NEVERLOSE:Notification()
