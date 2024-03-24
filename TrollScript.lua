@@ -6,6 +6,8 @@ local ts = game:GetService("TweenService")
 local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
 local aliveplrs = game.Workspace:WaitForChild("Alive")
 local vim = game:GetService("VirtualInputManager")
+local hit = game:GetService("ReplicatedStorage"):WaitForChild("Remotes").ParryButtonPress
+local abil = game:GetService("ReplicatedStorage"):WaitForChild("Remotes").AbilityButtonPress
 local dist = 7.5
 local ballspeed = 12.5
 local plrballdist = 0
@@ -14,6 +16,7 @@ local BallGui
 local rot = 0
 local rad = math.rad
 local clamp = math.clamp
+local abilused = false
 local tweentime = game:GetService("RunService").Heartbeat:Wait()
 local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
@@ -44,6 +47,7 @@ local Notification = NEVERLOSE:Notification()
 local data = {
 	Combat = {
 		AutoParryEnabled = false,
+		AutoAbilityEnabled=false,
 		VisualiserEnabled = false,
 		AutoSpamEnabled=false,
 		ParryTime=0.7
@@ -91,6 +95,9 @@ local succ, err = pcall(function()
 
 		Combat:AddToggle("Auto Parry",true,function(val)
 			data.Combat.AutoParryEnabled=val
+		end)
+		Combat:AddToggle("Auto Ability",true,function(val)
+			data.Combat.AutoAbilityEnabled=val
 		end)
 		Combat:AddToggle("Visualiser",false,function(val)
 			data.Combat.VisualiserEnabled=val
@@ -267,15 +274,34 @@ local succ, err = pcall(function()
 	end
 
 	function Parry()
-		game:GetService("ReplicatedStorage").Remotes.ParryButtonPress:Fire()
+		hit:Fire()
+	end
+
+	function Ability()
+		abil:Fire()
+		abilused=true
 	end
 
 	function TryParry()
 		if IsRealBall() then
 			if GetSpamDistance()<=10 and GetDistance()<=10 and data.Combat.AutoSpamEnabled then
-				Parry()
+				if data.Combat.AutoAbilityEnabled then
+					Ability()
+				end
+				if not abilused then
+	       			Parry()
+				else
+					abilused=false
+				end
 			elseif CanParry() and randball:GetAttribute("target")==plr.Name and data.Combat.AutoParryEnabled then
-	       		Parry()
+				if data.Combat.AutoAbilityEnabled then
+					Ability()
+				end
+				if not abilused then
+	       			Parry()
+				else
+					abilused=false
+				end
 	     	end
 		end
 	end
