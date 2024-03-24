@@ -93,10 +93,10 @@ local succ, err = pcall(function()
 			data.Trolls.PlayerToFollow=v.Name
 		end)
 
-		Combat:AddToggle("Auto Parry",true,function(val)
+		Combat:AddToggle("Auto Parry",false,function(val)
 			data.Combat.AutoParryEnabled=val
 		end)
-		Combat:AddToggle("Auto Ability",true,function(val)
+		Combat:AddToggle("Auto Ability",false,function(val)
 			data.Combat.AutoAbilityEnabled=val
 		end)
 		Combat:AddToggle("Visualiser",false,function(val)
