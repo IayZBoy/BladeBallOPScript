@@ -23,6 +23,10 @@ local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc
 NEVERLOSE:Theme("Dark") 
 
 local whitelisted = {
+	133840022, --XxMattvdbraakXx
+	1309041911, --Cel3stiallll
+	78604822, --kayd7
+	4863463328, --Dino_irak
 }
 
 local Notification = NEVERLOSE:Notification()
