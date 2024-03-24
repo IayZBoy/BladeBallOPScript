@@ -20,14 +20,7 @@ local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDire
 local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
 local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/Code.lua"))
 
-NEVERLOSE:Theme("Dark") 
-
-local whitelisted = {
-	133840022, --XxMattvdbraakXx
-	1309041911, --Cel3stiallll
-	78604822, --kayd7
-	4863463328, --Dino_irak
-}
+NEVERLOSE:Theme("Dark")
 
 local Notification = NEVERLOSE:Notification()
 
