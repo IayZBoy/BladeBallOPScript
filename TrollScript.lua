@@ -7,7 +7,6 @@ local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
 local aliveplrs = game.Workspace:WaitForChild("Alive")
 local vim = game:GetService("VirtualInputManager")
 local hit = game.ReplicatedStorage.Remotes.ParryAttempt
-local Camera = workspace.CurrentCamera
 local dist = 7.5
 local ballspeed = 12.5
 local plrballdist = 0
@@ -234,10 +233,12 @@ local succ, err = pcall(function()
 	end
 
 	function GetPoint()
-		if data.TargetPlr.TargetPlrEnabled and data.TargetPlr.Target then
-			return Camera:WorldToScreenPoint(workspace:FindFirstChild(data.TargetPlr.Target):FindFirstChild("HumanoidRootPart").Position)
-		else
-			return Camera:WorldToScreenPoint(hrp.Position)
+		if workspace:FindFirstChild("CurrentCamera") then
+			if data.TargetPlr.TargetPlrEnabled and data.TargetPlr.Target then
+				return workspace:FindFirstChild("CurrentCamera"):WorldToScreenPoint(workspace:FindFirstChild(data.TargetPlr.Target):FindFirstChild("HumanoidRootPart").Position)
+			else
+				return workspace:FindFirstChild("CurrentCamera"):WorldToScreenPoint(hrp.Position)
+			end
 		end
 	end
 
