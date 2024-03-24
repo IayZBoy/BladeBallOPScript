@@ -6,7 +6,6 @@ local ts = game:GetService("TweenService")
 local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
 local aliveplrs = game.Workspace:WaitForChild("Alive")
 local vim = game:GetService("VirtualInputManager")
-local hit = game.ReplicatedStorage.Remotes.ParryAttempt
 local dist = 7.5
 local ballspeed = 12.5
 local plrballdist = 0
@@ -37,6 +36,7 @@ local whitelisted = {
 	1309041911, --Cel3stiallll
 	78604822, --kayd7
 	4863463328, --Dino_irak
+	3939974770, --Dino Alt
 }
 
 local Notification = NEVERLOSE:Notification()
