@@ -1,63 +1,64 @@
-local plr = game.Players.LocalPlayer
-local char = plr.Character
-local hrp = char:WaitForChild("HumanoidRootPart")
-local hum = char:WaitForChild("Humanoid")
-local ts = game:GetService("TweenService")
-local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
-local aliveplrs = game.Workspace:WaitForChild("Alive")
-local vim = game:GetService("VirtualInputManager")
-local hit = game.ReplicatedStorage.Remotes.ParryAttempt
-local dist = 7.5
-local ballspeed = 12.5
-local plrballdist = 0
-local randball
-local BallGui
-local rot = 0
-local rad = math.rad
-local clamp = math.clamp
-local tweentime = game:GetService("RunService").Heartbeat:Wait()
-local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
-local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
-local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/Code.lua"))
-
-NEVERLOSE:Theme("Dark") 
-
-local whitelisted = {
-	133840022, --XxMattvdbraakXx
-	1309041911, --Cel3stiallll
-	78604822, --kayd7
-	4863463328, --Dino_irak
-}
-
-local Notification = NEVERLOSE:Notification()
-
-local data = {
-	Combat = {
-		AutoParryEnabled = false,
-		VisualiserEnabled = false,
-		AutoSpamEnabled=false,
-		ParryTime=0.7
-	},
-	Trolls = {
-		TrollEnabled = false,
-		TrollDistanceFactor = 0.2,
-		Gravity=196.2,
-		FollowPlayer = false,
-		PlayerToFollow = nil,
-		BallFrozen=false,
-		LookAtBall=false
-	},
-	Player = {
-		WalkSpeed = 36,
-		JumpPower = 50
-	},
-	TargetPlr = {
-		Target = nil,
-		TargetPlrEnabled=false
-	}
-}
-
 local succ, err = pcall(function()
+
+	local plr = game.Players.LocalPlayer
+	local char = plr.Character
+	local hrp = char:WaitForChild("HumanoidRootPart")
+	local hum = char:WaitForChild("Humanoid")
+	local ts = game:GetService("TweenService")
+	local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
+	local aliveplrs = game.Workspace:WaitForChild("Alive")
+	local vim = game:GetService("VirtualInputManager")
+	local hit = game.ReplicatedStorage.Remotes.ParryAttempt
+	local dist = 7.5
+	local ballspeed = 12.5
+	local plrballdist = 0
+	local randball
+	local BallGui
+	local rot = 0
+	local rad = math.rad
+	local clamp = math.clamp
+	local tweentime = game:GetService("RunService").Heartbeat:Wait()
+	local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+	local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
+	local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/Code.lua"))
+
+	NEVERLOSE:Theme("Dark") 
+
+	local whitelisted = {
+		133840022, --XxMattvdbraakXx
+		1309041911, --Cel3stiallll
+		78604822, --kayd7
+		4863463328, --Dino_irak
+	}
+
+	local Notification = NEVERLOSE:Notification()
+
+	local data = {
+		Combat = {
+			AutoParryEnabled = false,
+			VisualiserEnabled = false,
+			AutoSpamEnabled=false,
+			ParryTime=0.7
+		},
+		Trolls = {
+			TrollEnabled = false,
+			TrollDistanceFactor = 0.2,
+			Gravity=196.2,
+			FollowPlayer = false,
+			PlayerToFollow = nil,
+			BallFrozen=false,
+			LookAtBall=false
+		},
+		Player = {
+			WalkSpeed = 36,
+			JumpPower = 50
+		},
+		TargetPlr = {
+			Target = nil,
+			TargetPlrEnabled=false
+		}
+	}
+
 	function StartScript()
 		local window = NEVERLOSE:AddWindow("ZBOY HUB", "BLADE BALL - NEXT GENERATION")
 
