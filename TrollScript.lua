@@ -357,7 +357,6 @@ local succ, err = pcall(function()
 		start()
 	end
 end)
-
 if succ then
 	Notification:Notify("success", "SUCCESS!", "Successfully loaded script.", 4)
 elseif not succ then
