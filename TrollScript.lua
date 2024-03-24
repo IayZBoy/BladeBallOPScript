@@ -1,5 +1,4 @@
-local succ, err = pcall(function()
-	local plr = game.Players.LocalPlayer
+local plr = game.Players.LocalPlayer
 local char = plr.Character
 local hrp = char:WaitForChild("HumanoidRootPart")
 local hum = char:WaitForChild("Humanoid")
@@ -53,6 +52,8 @@ local data = {
 		TargetPlrEnabled=false
 	}
 }
+
+local succ, err = pcall(function()
 	function StartScript()
 		local window = NEVERLOSE:AddWindow("ZBOY HUB", "BLADE BALL - NEXT GENERATION")
 
