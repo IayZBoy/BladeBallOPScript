@@ -261,16 +261,12 @@ local data = {
 		end
 	end
 
-	function Parry()
-		hit:FireServer(0.65, CFrame.new(),{},{GetPoint().X,GetPoint().Y})
-	end
-
 	function TryParry()
 		if IsRealBall() then
 			if GetSpamDistance()<=10 and GetDistance()<=10 and data.Combat.AutoSpamEnabled then
-				Parry()
+				hit:FireServer(0.65, CFrame.new(),{},{})
 			elseif CanParry() and randball:GetAttribute("target")==plr.Name and data.Combat.AutoParryEnabled then
-	       		Parry()
+				hit:FireServer(0.65, CFrame.new(),{},{})
 	     	end
 		end
 	end
