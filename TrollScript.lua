@@ -7,7 +7,7 @@ local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
 local aliveplrs = game.Workspace:WaitForChild("Alive")
 local vim = game:GetService("VirtualInputManager")
 local hit = game.ReplicatedStorage.Remotes.ParryAttempt
-local Camera = workspace:WaitForChild("CurrentCamera")
+local Camera = workspace.CurrentCamera
 local dist = 7.5
 local ballspeed = 12.5
 local plrballdist = 0
@@ -58,7 +58,7 @@ local data = {
 	}
 }
 
-local err, succ = pcall(function()
+local succ, err = pcall(function()
 	function StartScript()
 		local window = NEVERLOSE:AddWindow("ZBOY HUB", "BLADE BALL - NEXT GENERATION")
 
@@ -367,5 +367,5 @@ end)
 if succ then
 	Notification:Notify("success", "SUCCESS!", "Successfully loaded script.", 4)
 elseif not succ then
-	Notification:Notify("error", "ERROR!", "Script failed to load. Error: "..err, 4)
+	Notification:Notify("error", "ERROR!", err, 4)
 end
