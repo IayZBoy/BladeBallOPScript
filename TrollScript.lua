@@ -20,7 +20,7 @@ local abilused = false
 local tweentime = game:GetService("RunService").Heartbeat:Wait()
 local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
-local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/Code.lua"))
+local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/Code.lua"))()
 
 NEVERLOSE:Theme("Dark") 
 
@@ -110,7 +110,7 @@ local succ, err = pcall(function()
 		end)
 
 		Trolls:AddToggle("Troll Enabled",false,function(val)
-			data.TrollEnabled=val
+			data.Trolls.TrollEnabled=val
 		end)
 
 		Trolls:AddToggle("Follow Player",false,function(a)
@@ -122,7 +122,7 @@ local succ, err = pcall(function()
 		end)
 
 		Trolls:AddToggle("Look at ball",false,function(a)
-			data.LookAtBall=a
+			data.Trolls.LookAtBall=a
 		end)
 
 		Trolls:AddButton("Update Players",function(a)
@@ -349,10 +349,9 @@ local succ, err = pcall(function()
 		end
 	end
 
-	randball:GetAttributeChangedSignal("target"):Connect(TryParry)
+	randball:GetAttributeChangedSignal("target"):Connect(LaunchItems)
 	game:GetService("RunService").RenderStepped:Connect(LaunchItems)
 	game:GetService("RunService").Heartbeat:Connect(LaunchItems)
-	randball.Changed:Connect(LaunchItems)
 
 	function start()
 	    while task.wait(tweentime) do
