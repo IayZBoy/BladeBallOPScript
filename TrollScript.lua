@@ -50,7 +50,8 @@ local data = {
 		AutoAbilityEnabled=false,
 		VisualiserEnabled = false,
 		AutoSpamEnabled=false,
-		ParryTime=0.7
+		ParryTime=0.7,
+		SpamDistance=10,
 	},
 	Trolls = {
 		TrollEnabled = false,
@@ -107,6 +108,9 @@ local succ, err = pcall(function()
 		end)
 		Combat:AddToggle("Auto Spam",false,function(val)
 			data.Combat.AutoSpamEnabled=val
+		end)
+		Combat:AddSlider("Spam Distance",0,50,10,function(val)
+			data.Combat.SpamDistance=val
 		end)
 
 		Trolls:AddToggle("Troll Enabled",false,function(val)
@@ -284,7 +288,7 @@ local succ, err = pcall(function()
 
 	function TryParry()
 		if IsRealBall() then
-			if GetSpamDistance()<=10 and GetDistance()<=10 and data.Combat.AutoSpamEnabled then
+			if GetSpamDistance()<=data.Combat.SpamDistance and GetDistance()<=data.Combat.SpamDistance and data.Combat.AutoSpamEnabled then
 				if data.Combat.AutoAbilityEnabled then
 					Ability()
 				end
