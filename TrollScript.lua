@@ -270,7 +270,7 @@ local succ, err = pcall(function()
 	end
 
 	function CanParry()
-		if GetDistance()<=GetSpeed()/1.5 then
+		if GetDistance()<=GetSpeed()/2 then
 			return true
 		else
 			return false
@@ -331,7 +331,7 @@ local succ, err = pcall(function()
 			indicatorPart.Transparency=1
 		end
 
-	    indicatorPart.Size=GetLocalSize()/1.5
+	    indicatorPart.Size=GetLocalSize()/2
 	end
 
 	function LaunchItems()
