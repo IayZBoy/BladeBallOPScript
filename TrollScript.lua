@@ -180,6 +180,9 @@ local succ, err = pcall(function()
 
 				while task.wait() do
 					TextLabel.Text="<b>BALL • "..plrballdist.."</b>"
+					if not a then
+						break
+					end
 				end
 				if not a and BallGui then
 					BallGui:Destroy()
@@ -335,7 +338,7 @@ local succ, err = pcall(function()
 	end
 
 	function LaunchItems()
-		if #balls:GetChildren()>=1 then
+		if balls:GetChildren() and #balls:GetChildren() >= 1 then
 			randball = balls:GetChildren()[math.random(1,#balls:GetChildren())]
 			if randball then
 				TryParry()
@@ -365,7 +368,7 @@ local succ, err = pcall(function()
         	char = game.Players.LocalPlayer.Character
         	hrp = char:WaitForChild("HumanoidRootPart")
 			hum = char:WaitForChild("Humanoid")
-        	if #balls >= 1 and aliveplrs:FindFirstChild(plr.Name) then
+        	if #balls:GetChildren() >= 1 and aliveplrs:FindFirstChild(plr.Name) then
             	if randball and hrp then
             	    local r = rad(rot)
             	    local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,dist)
