@@ -385,7 +385,7 @@ local succ, err = pcall(function()
             	    if randball:GetAttribute("target")==plr.Name then
             	        dist = clamp(dist*0.95, 6, math.huge)
             	    else
-            	        dist = clamp((randball.Velocity.Magnitude*data.TrollDistanceFactor)/0.95, 6, randball.Velocity.Magnitude*data.TrollDistanceFactor)
+            	        dist = clamp((randball.Velocity.Magnitude*data.Trolls.TrollDistanceFactor)/0.95, 6, randball.Velocity.Magnitude*data.Trolls.TrollDistanceFactor)
             	    end
 				
             	    plrballdist = (randball.Position-hrp.Position).Magnitude
@@ -397,7 +397,7 @@ local succ, err = pcall(function()
 	                    ts:Create(hrp, Info, {CFrame = newcframe}):Play()
 					elseif data.Trolls.FollowPlayer and data.Trolls.PlayerToFollow then
 						hrp.AssemblyLinearVelocity=Vector3.zero
-						ts:Create(hrp, Info, {CFrame = workspace:FindFirstChild(data.PlayerToFollow):FindFirstChild("HumanoidRootPart").CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,10)}):Play()
+						ts:Create(hrp, Info, {CFrame = workspace:FindFirstChild(data.Trolls.PlayerToFollow):FindFirstChild("HumanoidRootPart").CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,10)}):Play()
             	    end
         	    end
     	    end
