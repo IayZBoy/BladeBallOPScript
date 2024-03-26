@@ -3,7 +3,7 @@ local char = plr.Character
 local hrp = char:WaitForChild("HumanoidRootPart")
 local hum = char:WaitForChild("Humanoid")
 local ts = game:GetService("TweenService")
-local balls = game.Workspace:WaitForChild("Balls"):GetChildren()
+local balls = game.Workspace:WaitForChild("Balls")
 local aliveplrs = game.Workspace:WaitForChild("Alive")
 local vim = game:GetService("VirtualInputManager")
 local hit = game:GetService("ReplicatedStorage"):WaitForChild("Remotes").ParryButtonPress
@@ -335,20 +335,23 @@ local succ, err = pcall(function()
 	end
 
 	function LaunchItems()
-		if randball then
-			TryParry()
-			UpdateIndicator()
-			workspace.Gravity=data.Trolls.Gravity
-			if hum then
-				hum.WalkSpeed=data.Player.WalkSpeed
-				hum.JumpPower=data.Player.JumpPower
-				hum.UseJumpPower=true
-			end
-			if data.Trolls.BallFrozen then
-				game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
-			end
-			if data.Trolls.LookAtBall then
-				hrp.CFrame = CFrame.lookAt(hrp.Position, randball.Position, Vector3.new(0,1,0))
+		if #balls:GetChildren()>=1 then
+			randball = balls:GetChildren()[math.random(1,#balls:GetChildren())]
+			if randball then
+				TryParry()
+				UpdateIndicator()
+				workspace.Gravity=data.Trolls.Gravity
+				if hum then
+					hum.WalkSpeed=data.Player.WalkSpeed
+					hum.JumpPower=data.Player.JumpPower
+					hum.UseJumpPower=true
+				end
+				if data.Trolls.BallFrozen then
+					game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Freeze"):FireServer()
+				end
+				if data.Trolls.LookAtBall then
+					hrp.CFrame = CFrame.lookAt(hrp.Position, randball.Position, Vector3.new(0,1,0))
+				end
 			end
 		end
 	end
@@ -362,9 +365,7 @@ local succ, err = pcall(function()
         	char = game.Players.LocalPlayer.Character
         	hrp = char:WaitForChild("HumanoidRootPart")
 			hum = char:WaitForChild("Humanoid")
-        	balls = game.Workspace:WaitForChild("Balls"):GetChildren()
-        	if #balls > 0 and aliveplrs:FindFirstChild(plr.Name) then
-            	randball = balls[math.random(1,#balls)]
+        	if #balls >= 1 and aliveplrs:FindFirstChild(plr.Name) then
             	if randball and hrp then
             	    local r = rad(rot)
             	    local newcframe = randball.CFrame*CFrame.Angles(0,r,0)*CFrame.new(0,0,dist)
@@ -387,9 +388,9 @@ local succ, err = pcall(function()
             	    end
         	    end
     	    end
- 	   end
-		start()
+ 		end
 	end
+	start()
 end)
 
 if succ then
