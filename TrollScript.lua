@@ -88,10 +88,10 @@ local succ, err = pcall(function()
 		local Esp = Main:AddSection("ESP", "right")
 
 		local PlayerList = Trolls:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
-			data.Trolls.PlayerToFollow=v.Name
+			data.Trolls.PlayerToFollow=v
 		end)
 		local PlayerList2 = TargetPlr:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
-			data.Trolls.PlayerToFollow=v.Name
+			data.Trolls.PlayerToFollow=v
 		end)
 
 		Combat:AddToggle("Auto Parry",false,function(val)
