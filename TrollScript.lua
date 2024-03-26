@@ -42,6 +42,10 @@ local whitelisted = {
 	3939974770, --Dino Alt
 }
 
+local Players = {
+
+}
+
 local Notification = NEVERLOSE:Notification()
 
 local data = {
@@ -87,10 +91,10 @@ local succ, err = pcall(function()
 		local TargetPlr = Main:AddSection("TARGET PLAYER", "left")
 		local Esp = Main:AddSection("ESP", "right")
 
-		local PlayerList = Trolls:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
+		local PlayerList = Trolls:AddDropdown("Players", Players,game.Players.LocalPlayer.Name, function(v)
 			data.Trolls.PlayerToFollow=v
 		end)
-		local PlayerList2 = TargetPlr:AddDropdown("Players", game.Players:GetPlayers(),game.Players.LocalPlayer, function(v)
+		local PlayerList2 = TargetPlr:AddDropdown("Players", Players,game.Players.LocalPlayer.Name, function(v)
 			data.Trolls.PlayerToFollow=v
 		end)
 
@@ -200,6 +204,12 @@ local succ, err = pcall(function()
 		nqxl:AddLabel("FOR THE CODES AND THE ANTI-LAG")
 
 		game.Players.PlayerAdded:Connect(function()
+			table.clear(Players)
+			for i,v in pairs(game.Players:GetPlayers()) do
+				if v:IsA("Player") then
+					table[i]=v.Name
+				end
+			end
 			PlayerList:Refresh()
 			PlayerList2:Refresh()
 		end)
