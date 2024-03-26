@@ -204,10 +204,10 @@ local succ, err = pcall(function()
 		nqxl:AddLabel("FOR THE CODES AND THE ANTI-LAG")
 
 		game.Players.PlayerAdded:Connect(function()
-			table.clear(Players)
+			Players = {}
 			for i,v in pairs(game.Players:GetPlayers()) do
 				if v:IsA("Player") then
-					table[i]=v.Name
+					Players[i]=v.Name
 				end
 			end
 			PlayerList:Refresh()
