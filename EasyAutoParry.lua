@@ -31,7 +31,7 @@ function IsRealBall()
 end
 
 function Start()
-    if balls then
+    if balls and #balls:GetChildren()>0 then
         randball = balls:GetChildren()[math.random(1,#balls:GetChildren())]
         if randball then
             plrballdist = (randball.Position-hrp.Position).Magnitude
