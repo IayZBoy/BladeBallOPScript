@@ -6,6 +6,8 @@ local hrp = char:WaitForChild("HumanoidRootPart")
 local plrballdist
 local hit = game:GetService("ReplicatedStorage"):WaitForChild("Remotes").ParryButtonPress
 
+-------------------------------------
+
 function GetSpeed()
     return (ballspeed*0.65)/2
 end
