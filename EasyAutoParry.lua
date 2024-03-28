@@ -42,3 +42,6 @@ function Start()
         end
     end
 end
+
+game:GetService("RunService").RenderStepped:Connect(Start)
+game:GetService("RunService").Heartbeat:Connect(Start)
