@@ -36,7 +36,7 @@ function Start()
         if randball then
             plrballdist = (randball.Position-hrp.Position).Magnitude
             ballspeed = clamp(randball.Velocity.Magnitude,6,math.huge)
-            if GetDistance()<=15 and IsRealBall() and ball:GetAttribute("target")==plr.Name then
+            if CanParry() and IsRealBall() and ball:GetAttribute("target")==plr.Name then
                 Parry()
             end
         end
