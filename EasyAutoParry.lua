@@ -7,7 +7,7 @@ local plrballdist
 local hit = game:GetService("ReplicatedStorage"):WaitForChild("Remotes").ParryButtonPress
 
 function GetSpeed()
-    return (ballspeed*data.Combat.ParryTime)/2
+    return (ballspeed*0.65)/2
 end
 
 function GetDistance()
