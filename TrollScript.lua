@@ -34,12 +34,16 @@ local indicatorPart = Instance.new("Part")
 	indicatorPart.Shape=Enum.PartType.Ball
 	indicatorPart.Parent = workspace
 
-local whitelisted = {
+local whitelisted2 = {
 	133840022, --XxMattvdbraakXx
 	1309041911, --Cel3stiallll
 	78604822, --kayd7
 	4863463328, --Dino_irak
 	3939974770, --Dino Alt
+}
+
+local whitelisted = {
+	
 }
 
 local Players = {
