@@ -20,7 +20,6 @@ local abilused = false
 local tweentime = game:GetService("RunService").Heartbeat:Wait()
 local Info = TweenInfo.new(tweentime/4.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
 local NEVERLOSE = loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NEVERLOSE-UI-Nightly/main/source.lua"))()
-local Codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/nqxlOfc/Other-Stuff/main/Code.lua"))()
 
 NEVERLOSE:Theme("Dark") 
 
@@ -43,7 +42,7 @@ local whitelisted2 = {
 }
 
 local whitelisted = {
-	
+
 }
 
 local Players = {
